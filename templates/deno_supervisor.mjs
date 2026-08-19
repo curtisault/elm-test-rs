@@ -26,7 +26,7 @@ reporter = Elm.Reporter.init({ flags: flags });
 
 // Pipe the Elm stdout port to stdout
 reporter.ports.stdout.subscribe(
-  (str) => Deno.writeAll(Deno.stdout, new TextEncoder().encode(str))
+  (str) => Deno.stdout.write(new TextEncoder().encode(str))
 );
 
 // When the reporter has finished clean runners
@@ -61,7 +61,7 @@ function startWork(runnerFile) {
 }
 
 function stderrLog(str) {
-    Deno.writeAllSync(Deno.stderr, new TextEncoder().encode(str));
+    Deno.stderr.writeSync(new TextEncoder().encode(str));
 }
 
 // Handle a test result
